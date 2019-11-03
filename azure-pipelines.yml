@@ -42,8 +42,24 @@ steps:
     SourceFolder: '$(build.sourcesdirectory)'
     Contents: |
       **/*.dacpac 
-      **/*.zip
+      **/PokerLeagueManager.Commands.WebApi.zip
+      **/PokerLeagueManager.Events.WebApi.zip
+      **/PokerLeagueManager.Queries.WebApi.zip
+      **/PokerLeagueManager.UI.Web.zip
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(build.sourcesdirectory)/deploy'
+    Contents: '**'
+    TargetFolder: '$(build.artifactsstagingdirectory)/deploy'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(build.sourcesdirectory)/PokerLeagueManager.Utilties/bin/$(buildconfiguration)'
+    Contents: '**'
+    TargetFolder: '$(build.artifactstagingdirectory)/Utility'
+    flattenFolders: true
 
 - task: PublishBuildArtifacts@1
   inputs:
