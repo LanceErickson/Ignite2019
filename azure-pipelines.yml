@@ -16,16 +16,20 @@ variables:
 
 steps:
 - task: NuGetToolInstaller@1
+  displayName: Install Nuget
 
 - task: BatchScript@1
+  displayName: Build Angular
   inputs:
     filename: '$(build.sourcesdirectory)\src\PokerLeagueManager.UI.Web\BuildAngular.bat'
 
 - task: NuGetCommand@2
+  displayName: Nuget Restore
   inputs:
     restoreSolution: '$(solution)'
 
 - task: VSBuild@1
+  displayName: Build Solutions
   inputs:
     solution: '$(solution)'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true'
@@ -33,11 +37,13 @@ steps:
     configuration: '$(buildConfiguration)'
 
 - task: VSTest@2
+  displayName: Run Tests
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
 - task: CopyFiles@2
+  displayName: Copy Binaries
   inputs:
     SourceFolder: '$(build.sourcesdirectory)'
     Contents: |
@@ -50,12 +56,14 @@ steps:
     flattenFolders: true
 
 - task: CopyFiles@2
+  displayName: Copy Deployment files
   inputs:
     SourceFolder: '$(build.sourcesdirectory)/deploy'
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)/deploy'
 
 - task: CopyFiles@2
+  displayName: Copy Utilities
   inputs:
     SourceFolder: '$(build.sourcesdirectory)/src/PokerLeagueManager.Utilities/bin/$(buildconfiguration)'
     Contents: '**'
@@ -63,6 +71,7 @@ steps:
     flattenFolders: true
 
 - task: PublishBuildArtifacts@1
+  displayName: Publish Artifacts
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
