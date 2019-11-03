@@ -47,17 +47,20 @@ steps:
       **/PokerLeagueManager.Queries.WebApi.zip
       **/PokerLeagueManager.UI.Web.zip
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    flattenFolders: true
 
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(build.sourcesdirectory)/deploy'
     Contents: '**'
-    TargetFolder: '$(build.artifactsstagingdirectory)/deploy'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/deploy'
 
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(build.sourcesdirectory)/src/PokerLeagueManager.Utilities/bin/$(buildconfiguration)'
-    Contents: '**'
+    Contents: |
+      **/*.exe 
+      **/*.dll
     TargetFolder: '$(build.artifactstagingdirectory)/Utility'
     flattenFolders: true
 
