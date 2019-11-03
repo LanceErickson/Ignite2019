@@ -54,6 +54,7 @@ steps:
     Contents: '**'
     TargetFolder: '$(build.artifactsstagingdirectory)/deploy'
 
+
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(build.sourcesdirectory)/PokerLeagueManager.Utilties/bin/$(buildconfiguration)'
