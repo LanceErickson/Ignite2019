@@ -56,7 +56,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(build.sourcesdirectory)/**/PokerLeagueManager.Utilties/bin/$(buildconfiguration)'
+    SourceFolder: '$(build.sourcesdirectory)/PokerLeagueManager.Utilties/bin/$(buildconfiguration)'
     Contents: '**'
     TargetFolder: '$(build.artifactstagingdirectory)/Utility'
     flattenFolders: true
